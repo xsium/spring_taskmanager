@@ -25,7 +25,8 @@ public class Category {
     private String label;
 
     @ManyToMany
-    @JoinTable(name = "completing", joinColumns = @JoinColumn(name = "category_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
+    @JoinTable(name = "tasks_categories", joinColumns = @JoinColumn(name = "category_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
+
     private List<Task> tasks = new ArrayList<>();
 
     public Category() {
@@ -57,6 +58,14 @@ public class Category {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                " id='" + getId() + "'" +
+                ", label='" + getLabel() + "'" +
+                "}";
     }
 
 }

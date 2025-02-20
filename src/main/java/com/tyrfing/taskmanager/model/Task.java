@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,18 +23,30 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, name = "label")
+    @Column(unique = true, name = "title")
     private String title;
     @Column(name = "description")
     private String description;
-    @Column(name = "date")
+    @Column(name = "creation_date")
     private Date date;
     @Column(name = "status")
     private boolean status;
 
     @ManyToMany
-    @JoinTable(name = "completing", joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JoinTable(name = "tasks_categories", joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Task() {
     }
@@ -95,6 +108,18 @@ public class Task {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                " id='" + getId() + "'" +
+                ", title='" + getTitle() + "'" +
+                ", description='" + getDescription() + "'" +
+                ", date='" + getDate() + "'" +
+                ", status='" + isStatus() + "'" +
+                ", categories='" + getCategories() + "'" +
+                "}";
     }
 
 }

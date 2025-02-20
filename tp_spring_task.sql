@@ -32,15 +32,6 @@ CREATE TABLE IF NOT EXISTS categories (
 ) ENGINE=InnoDB CHARSET=utf8mb4;
 
 
--- table associative
-CREATE TABLE completing  (
-    task_id INT NOT NULL,
-    category_id INT NOT NULL,
-    PRIMARY KEY (task_id, category_id),
-    FOREIGN KEY (task_id) REFERENCES task(id) ON DELETE CASCADE,
-    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
-) ENGINE=InnoDB CHARSET=utf8mb4;
-
 
 -- foreign keys
 ALTER TABLE users
@@ -50,3 +41,15 @@ FOREIGN KEY(role_id) REFERENCES roles(id);
 ALTER TABLE tasks
 ADD CONSTRAINT fk_users
 FOREIGN KEY(user_id) REFERENCES users(id);
+
+-- table associative
+CREATE TABLE tasks_categories  (
+    task_id INT NOT NULL,
+    category_id INT NOT NULL,
+    PRIMARY KEY (task_id, category_id),
+    FOREIGN KEY (task_id) REFERENCES tasks(id),
+    FOREIGN KEY (category_id) REFERENCES categories(id)
+) ENGINE=InnoDB CHARSET=utf8mb4;
+
+INSERT INTO roles (role_name) VALUES ("ADMIN"),("MANAGER"),("USER");
+INSERT INTO categories (label) VALUES ("JAVA"),("JS"),("PHP"),("HTML"), ("CSS"), ("SQL");
