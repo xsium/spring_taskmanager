@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tyrfing.taskmanager.dto.UserDTO;
 import com.tyrfing.taskmanager.model.User;
 import com.tyrfing.taskmanager.service.UserService;
 
@@ -23,12 +24,17 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public UserDTO getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
     @PostMapping("/user")
     public User addUser(@RequestBody User user) {
         return userService.addUser(user);
+    }
+
+    @GetMapping("/user/mail/{email}")
+    public UserDTO getUserByEmail(@PathVariable String email) {
+        return userService.getUserByEmail(email);
     }
 }

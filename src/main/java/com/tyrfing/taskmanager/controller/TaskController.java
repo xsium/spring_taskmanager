@@ -1,7 +1,6 @@
 package com.tyrfing.taskmanager.controller;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +24,7 @@ public class TaskController {
     }
 
     @GetMapping("/task/{id}")
-    public Stream<TaskDTO> getTaskById(@PathVariable Long id) {
+    public TaskDTO getTaskById(@PathVariable Long id) {
         return taskService.getTaskById(id);
     }
 

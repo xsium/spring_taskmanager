@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS tasks (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     title VARCHAR(50) NOT NULL,
     `description` VARCHAR(255),
-    creation_date DATE NOT NULL,
+    creation_date DATE NOT NULL DEFAULT (current_date()),
     `status` TINYINT(1) NOT NULL DEFAULT 0,
     user_id INT NOT NULL
 ) ENGINE=InnoDB CHARSET=utf8mb4;

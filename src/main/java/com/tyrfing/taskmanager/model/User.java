@@ -1,5 +1,7 @@
 package com.tyrfing.taskmanager.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -36,6 +39,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @OneToMany(targetEntity = Task.class, mappedBy = "user")
+    private List<Task> tasks;
+
+    public List<Task> getTasks() {
+        return tasks;
     }
 
     public User() {
@@ -87,6 +97,17 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                ", lastname='" + getLastname() + "'" +
+                ", firstname='" + getFirstname() + "'" +
+                ", email='" + getEmail() + "'" +
+                ", role='" + getRole() + "'" +
+                ", tasks='" + getTasks() + "'" +
+                "}";
     }
 
 }
