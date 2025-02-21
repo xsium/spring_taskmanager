@@ -41,7 +41,9 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/user").authenticated())
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/user/*").authenticated())
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/user/*/*").authenticated())
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/tasks").authenticated())
+                // endpoint /tasks désécurisé en permitAll pour permettre à l'interface
+                // graphique de display pour le moment
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/tasks").permitAll())
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/task").authenticated())
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/task/*").authenticated())
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
